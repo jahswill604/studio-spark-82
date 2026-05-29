@@ -6,12 +6,12 @@ import { showUndoToast } from "@/components/admin/undoToast";
 import type { UploadCardData } from "@/components/admin/UploadCard";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { keepBothProduct, mergeProduct } from "@/lib/products.functions";
+import { keepBothProduct, mergeProduct, type ProductInput } from "@/lib/products.functions";
 
 import { cardToProductInput } from "./cardToProductInput";
 
 export type DuplicateEntry = {
-  newProduct: ReturnType<typeof cardToProductInput>;
+  newProduct: ProductInput;
   existingProduct: {
     id: string;
     name: string;
@@ -26,6 +26,7 @@ export type DuplicateEntry = {
   matchType: "name" | "image";
   newCardSnapshot: UploadCardData;
 };
+
 
 
 export function DuplicateModal({
