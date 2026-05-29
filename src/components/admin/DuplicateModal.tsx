@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { keepBothProduct, mergeProduct, type ProductInput } from "@/lib/products.functions";
 
-import { cardToProductInput } from "./cardToProductInput";
+
+
 
 export type DuplicateEntry = {
   newProduct: ProductInput;
