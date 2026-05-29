@@ -21,11 +21,12 @@ export type DuplicateEntry = {
     image_url: string | null;
     description: string | null;
     updated_at: string;
+    [k: string]: unknown;
   };
   matchType: "name" | "image";
-  // Reference back to original card for image preview
   newCardSnapshot: UploadCardData;
 };
+
 
 export function DuplicateModal({
   queue,
