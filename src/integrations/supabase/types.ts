@@ -14,16 +14,159 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      action_log: {
+        Row: {
+          action_type: string
+          created_at: string
+          expires_at: string | null
+          id: string
+          product_id: string | null
+          snapshot_after: Json | null
+          snapshot_before: Json | null
+          user_id: string | null
+        }
+        Insert: {
+          action_type: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          product_id?: string | null
+          snapshot_after?: Json | null
+          snapshot_before?: Json | null
+          user_id?: string | null
+        }
+        Update: {
+          action_type?: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          product_id?: string | null
+          snapshot_after?: Json | null
+          snapshot_before?: Json | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          badge: string | null
+          category: string | null
+          color: string | null
+          cost: number | null
+          created_at: string
+          deal_ends_at: string | null
+          deal_price: number | null
+          description: string | null
+          id: string
+          image_hash: string | null
+          image_url: string | null
+          is_flash_deal: boolean | null
+          is_published: boolean | null
+          name: string
+          price: number | null
+          product_type: string | null
+          ram: string | null
+          seo_keywords: string[] | null
+          sku: string
+          slug: string | null
+          social_caption: string | null
+          stock_qty: number | null
+          storage: string | null
+          tags: string[] | null
+          updated_at: string
+        }
+        Insert: {
+          badge?: string | null
+          category?: string | null
+          color?: string | null
+          cost?: number | null
+          created_at?: string
+          deal_ends_at?: string | null
+          deal_price?: number | null
+          description?: string | null
+          id?: string
+          image_hash?: string | null
+          image_url?: string | null
+          is_flash_deal?: boolean | null
+          is_published?: boolean | null
+          name: string
+          price?: number | null
+          product_type?: string | null
+          ram?: string | null
+          seo_keywords?: string[] | null
+          sku: string
+          slug?: string | null
+          social_caption?: string | null
+          stock_qty?: number | null
+          storage?: string | null
+          tags?: string[] | null
+          updated_at?: string
+        }
+        Update: {
+          badge?: string | null
+          category?: string | null
+          color?: string | null
+          cost?: number | null
+          created_at?: string
+          deal_ends_at?: string | null
+          deal_price?: number | null
+          description?: string | null
+          id?: string
+          image_hash?: string | null
+          image_url?: string | null
+          is_flash_deal?: boolean | null
+          is_published?: boolean | null
+          name?: string
+          price?: number | null
+          product_type?: string | null
+          ram?: string | null
+          seo_keywords?: string[] | null
+          sku?: string
+          slug?: string | null
+          social_caption?: string | null
+          stock_qty?: number | null
+          storage?: string | null
+          tags?: string[] | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +293,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
