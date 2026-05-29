@@ -389,10 +389,11 @@ export const updateProduct = createServerFn({ method: "POST" })
       .single();
     const { data: row, error } = await supabaseAdmin
       .from("products")
-      .update(data.patch)
+      .update(data.patch as never)
       .eq("id", data.id)
       .select("*")
       .single();
+
     if (error) throw new Error(error.message);
     await supabaseAdmin.from("action_log").insert({
       action_type: "update",
@@ -512,8 +513,9 @@ export const undoLastAction = createServerFn({ method: "POST" })
           deal_price: b.deal_price,
           deal_ends_at: b.deal_ends_at,
           is_published: b.is_published,
-        })
+        } as never)
         .eq("id", b.id);
+
       restoredName = b.name;
     } else if (log.action_type === "delete" && log.snapshot_before?.id) {
       await supabaseAdmin
