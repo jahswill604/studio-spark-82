@@ -8,6 +8,7 @@ import { formatNaira, useCart } from "@/hooks/useCart";
 export type PublicProduct = {
   id: string;
   name: string;
+  sku?: string | null;
   price: number | string | null;
   color: string | null;
   ram: string | null;
@@ -15,11 +16,15 @@ export type PublicProduct = {
   product_type: string | null;
   stock_qty: number | null;
   image_url: string | null;
+  description?: string | null;
+  category?: string | null;
+  tags?: string[] | null;
   badge: string | null;
   is_flash_deal: boolean | null;
   deal_price: number | string | null;
   deal_ends_at: string | null;
 };
+
 
 export function fakeReviewCount(id: string): number {
   let h = 0;
