@@ -7,7 +7,7 @@ import { StoreLayout } from "@/components/storefront/StoreLayout";
 import { listPublicProducts } from "@/lib/products.functions";
 
 export const Route = createFileRoute("/category/$type")({
-  head: ({ params }) => ({ meta: [{ title: `${params.type} — Studio Store` }] }),
+  head: ({ params }) => ({ meta: [{ title: `${params.type}s — BO Gadgets` }] }),
   component: CategoryPage,
 });
 
