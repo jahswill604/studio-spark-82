@@ -10,7 +10,7 @@ import { formatNaira, useCart } from "@/hooks/useCart";
 import { getPublicProduct, listPublicProducts } from "@/lib/products.functions";
 
 export const Route = createFileRoute("/product/$id")({
-  head: () => ({ meta: [{ title: "Product — Studio Store" }] }),
+  head: () => ({ meta: [{ title: "Product — BO Gadgets" }] }),
   component: ProductDetailPage,
 });
 

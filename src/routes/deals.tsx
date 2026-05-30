@@ -6,7 +6,7 @@ import { StoreLayout } from "@/components/storefront/StoreLayout";
 import { listFlashDeals } from "@/lib/products.functions";
 
 export const Route = createFileRoute("/deals")({
-  head: () => ({ meta: [{ title: "Deals — Studio Store" }] }),
+  head: () => ({ meta: [{ title: "Flash Deals — BO Gadgets" }] }),
   component: DealsPage,
 });
 

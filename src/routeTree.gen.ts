@@ -9,8 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ShopRouteImport } from './routes/shop'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as DealsRouteImport } from './routes/deals'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ProductIdRouteImport } from './routes/product.$id'
@@ -20,6 +23,11 @@ import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminFlashDealsRouteImport } from './routes/admin.flash-deals'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
@@ -28,6 +36,16 @@ const SearchRoute = SearchRouteImport.update({
 const DealsRoute = DealsRouteImport.update({
   id: '/deals',
   path: '/deals',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -73,8 +91,11 @@ const AdminDashboardRoute = AdminDashboardRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/deals': typeof DealsRoute
   '/search': typeof SearchRoute
+  '/shop': typeof ShopRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/flash-deals': typeof AdminFlashDealsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -85,8 +106,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/deals': typeof DealsRoute
   '/search': typeof SearchRoute
+  '/shop': typeof ShopRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/flash-deals': typeof AdminFlashDealsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -98,8 +122,11 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/deals': typeof DealsRoute
   '/search': typeof SearchRoute
+  '/shop': typeof ShopRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/flash-deals': typeof AdminFlashDealsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -112,8 +139,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/contact'
     | '/deals'
     | '/search'
+    | '/shop'
     | '/admin/dashboard'
     | '/admin/flash-deals'
     | '/admin/login'
@@ -124,8 +154,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/contact'
     | '/deals'
     | '/search'
+    | '/shop'
     | '/admin/dashboard'
     | '/admin/flash-deals'
     | '/admin/login'
@@ -136,8 +169,11 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/contact'
     | '/deals'
     | '/search'
+    | '/shop'
     | '/admin/dashboard'
     | '/admin/flash-deals'
     | '/admin/login'
@@ -149,8 +185,11 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
   DealsRoute: typeof DealsRoute
   SearchRoute: typeof SearchRoute
+  ShopRoute: typeof ShopRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminFlashDealsRoute: typeof AdminFlashDealsRoute
   AdminLoginRoute: typeof AdminLoginRoute
@@ -162,6 +201,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/search': {
       id: '/search'
       path: '/search'
@@ -174,6 +220,20 @@ declare module '@tanstack/react-router' {
       path: '/deals'
       fullPath: '/deals'
       preLoaderRoute: typeof DealsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -237,8 +297,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
   DealsRoute: DealsRoute,
   SearchRoute: SearchRoute,
+  ShopRoute: ShopRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminFlashDealsRoute: AdminFlashDealsRoute,
   AdminLoginRoute: AdminLoginRoute,
@@ -250,13 +313,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

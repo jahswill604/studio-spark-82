@@ -133,3 +133,7 @@ body {
   to   { transform: translateX(-50%); }
 }
 .marquee-scroll { animation: marqueeScroll 40s linear infinite; }
+
+/* Hide scrollbar but keep scrolling */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

@@ -9,7 +9,7 @@ import { listPublicProducts } from "@/lib/products.functions";
 
 export const Route = createFileRoute("/search")({
   validateSearch: z.object({ q: z.string().optional().default("") }),
-  head: () => ({ meta: [{ title: "Search — Studio Store" }] }),
+  head: () => ({ meta: [{ title: "Search — BO Gadgets" }] }),
   component: SearchPage,
 });
 
