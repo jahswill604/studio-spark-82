@@ -192,7 +192,7 @@ export const updateOrderAdmin = createServerFn({ method: "POST" })
 
     const { data: row, error } = await supabaseAdmin
       .from("orders")
-      .update(patch)
+      .update(patch as never)
       .eq("id", data.id)
       .select("*")
       .single();

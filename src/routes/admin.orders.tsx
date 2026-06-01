@@ -83,7 +83,7 @@ function AdminOrdersPage() {
     refetchInterval: 30000,
   });
 
-  const orders = (data?.orders ?? []) as OrderRow[];
+  const orders = (data?.orders ?? []) as unknown as OrderRow[];
   const filtered = filter === "all" ? orders : orders.filter((o) => o.status === filter);
   const counts = orders.reduce(
     (acc, o) => {
