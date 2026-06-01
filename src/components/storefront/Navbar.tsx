@@ -21,6 +21,7 @@ const NAV_LINKS = [
   { to: "/deals", label: "Deals" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
+  { to: "/track", label: "Track" },
 ] as const;
 
 export function Navbar() {

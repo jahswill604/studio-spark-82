@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TrackRouteImport } from './routes/track'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as DealsRouteImport } from './routes/deals'
@@ -26,6 +27,11 @@ import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminFlashDealsRouteImport } from './routes/admin.flash-deals'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 
+const TrackRoute = TrackRouteImport.update({
+  id: '/track',
+  path: '/track',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/deals': typeof DealsRoute
   '/search': typeof SearchRoute
   '/shop': typeof ShopRoute
+  '/track': typeof TrackRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/flash-deals': typeof AdminFlashDealsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -133,6 +140,7 @@ export interface FileRoutesByTo {
   '/deals': typeof DealsRoute
   '/search': typeof SearchRoute
   '/shop': typeof ShopRoute
+  '/track': typeof TrackRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/flash-deals': typeof AdminFlashDealsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -152,6 +160,7 @@ export interface FileRoutesById {
   '/deals': typeof DealsRoute
   '/search': typeof SearchRoute
   '/shop': typeof ShopRoute
+  '/track': typeof TrackRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/flash-deals': typeof AdminFlashDealsRoute
   '/admin/login': typeof AdminLoginRoute
@@ -172,6 +181,7 @@ export interface FileRouteTypes {
     | '/deals'
     | '/search'
     | '/shop'
+    | '/track'
     | '/admin/dashboard'
     | '/admin/flash-deals'
     | '/admin/login'
@@ -190,6 +200,7 @@ export interface FileRouteTypes {
     | '/deals'
     | '/search'
     | '/shop'
+    | '/track'
     | '/admin/dashboard'
     | '/admin/flash-deals'
     | '/admin/login'
@@ -208,6 +219,7 @@ export interface FileRouteTypes {
     | '/deals'
     | '/search'
     | '/shop'
+    | '/track'
     | '/admin/dashboard'
     | '/admin/flash-deals'
     | '/admin/login'
@@ -227,6 +239,7 @@ export interface RootRouteChildren {
   DealsRoute: typeof DealsRoute
   SearchRoute: typeof SearchRoute
   ShopRoute: typeof ShopRoute
+  TrackRoute: typeof TrackRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminFlashDealsRoute: typeof AdminFlashDealsRoute
   AdminLoginRoute: typeof AdminLoginRoute
@@ -240,6 +253,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/track': {
+      id: '/track'
+      path: '/track'
+      fullPath: '/track'
+      preLoaderRoute: typeof TrackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shop': {
       id: '/shop'
       path: '/shop'
@@ -363,6 +383,7 @@ const rootRouteChildren: RootRouteChildren = {
   DealsRoute: DealsRoute,
   SearchRoute: SearchRoute,
   ShopRoute: ShopRoute,
+  TrackRoute: TrackRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminFlashDealsRoute: AdminFlashDealsRoute,
   AdminLoginRoute: AdminLoginRoute,
@@ -376,3 +397,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
