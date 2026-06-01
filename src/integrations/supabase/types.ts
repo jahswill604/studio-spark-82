@@ -47,6 +47,84 @@ export type Database = {
         }
         Relationships: []
       }
+      orders: {
+        Row: {
+          admin_notes: string | null
+          created_at: string
+          customer_email: string
+          customer_name: string
+          customer_phone: string
+          delivery_address: string
+          delivery_city: string | null
+          delivery_fee: number | null
+          delivery_notes: string | null
+          delivery_state: string | null
+          id: string
+          items: Json
+          order_number: string
+          payment_confirmed_at: string | null
+          payment_receipt_url: string | null
+          payment_reference: string | null
+          payment_submitted_at: string | null
+          status: Database["public"]["Enums"]["order_status"]
+          subtotal: number
+          total: number
+          tracking_number: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          admin_notes?: string | null
+          created_at?: string
+          customer_email: string
+          customer_name: string
+          customer_phone: string
+          delivery_address: string
+          delivery_city?: string | null
+          delivery_fee?: number | null
+          delivery_notes?: string | null
+          delivery_state?: string | null
+          id?: string
+          items: Json
+          order_number: string
+          payment_confirmed_at?: string | null
+          payment_receipt_url?: string | null
+          payment_reference?: string | null
+          payment_submitted_at?: string | null
+          status?: Database["public"]["Enums"]["order_status"]
+          subtotal: number
+          total: number
+          tracking_number?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          admin_notes?: string | null
+          created_at?: string
+          customer_email?: string
+          customer_name?: string
+          customer_phone?: string
+          delivery_address?: string
+          delivery_city?: string | null
+          delivery_fee?: number | null
+          delivery_notes?: string | null
+          delivery_state?: string | null
+          id?: string
+          items?: Json
+          order_number?: string
+          payment_confirmed_at?: string | null
+          payment_receipt_url?: string | null
+          payment_reference?: string | null
+          payment_submitted_at?: string | null
+          status?: Database["public"]["Enums"]["order_status"]
+          subtotal?: number
+          total?: number
+          tracking_number?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       products: {
         Row: {
           badge: string | null
@@ -167,6 +245,14 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
+      order_status:
+        | "pending_payment"
+        | "payment_submitted"
+        | "paid"
+        | "processing"
+        | "shipped"
+        | "delivered"
+        | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -295,6 +381,15 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user"],
+      order_status: [
+        "pending_payment",
+        "payment_submitted",
+        "paid",
+        "processing",
+        "shipped",
+        "delivered",
+        "cancelled",
+      ],
     },
   },
 } as const

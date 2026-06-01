@@ -1,10 +1,11 @@
+import { useNavigate } from "@tanstack/react-router";
 import { Minus, Plus, ShoppingBag, X } from "lucide-react";
-import { toast } from "sonner";
 
 import { formatNaira, useCart } from "@/hooks/useCart";
 
 export function CartDrawer() {
   const cart = useCart();
+  const navigate = useNavigate();
   if (!cart.isOpen) return null;
 
   return (
@@ -43,7 +44,7 @@ export function CartDrawer() {
             <span className="font-semibold">{formatNaira(cart.subtotal)}</span>
           </div>
           <button
-            onClick={() => toast.info("Checkout coming soon")}
+            onClick={() => { cart.close(); navigate({ to: "/checkout" }); }}
             disabled={cart.items.length === 0}
             className="w-full h-11 rounded-lg bg-primary text-primary-foreground font-medium hover:bg-primary-hover transition disabled:opacity-50"
           >
